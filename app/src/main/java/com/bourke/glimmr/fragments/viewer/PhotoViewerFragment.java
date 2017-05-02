@@ -2,6 +2,9 @@ package com.bourke.glimmr.fragments.viewer;
 
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
+import android.content.ClipboardManager;
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -64,6 +67,7 @@ public final class PhotoViewerFragment extends BaseFragment
 
     private MenuItem mFavoriteButton;
     private MenuItem mWallpaperButton;
+    private MenuItem mCopyButton;
 
     private LoadPhotoInfoTask mTask;
 
@@ -118,6 +122,7 @@ public final class PhotoViewerFragment extends BaseFragment
         inflater.inflate(R.menu.photoviewer_menu, menu);
         mFavoriteButton = menu.findItem(R.id.menu_favorite);
         mWallpaperButton = menu.findItem(R.id.menu_set_wallpaper);
+        mCopyButton = menu.findItem(R.id.menu_copy);
 
         /* The task could return before this has inflated, so make sure it's up
          * to date */
@@ -158,9 +163,28 @@ public final class PhotoViewerFragment extends BaseFragment
             case R.id.menu_set_wallpaper:
                 onWallpaperButtonClick();
                 return true;
+            case R.id.menu_copy:
+                copyToClipboard();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void copyToClipboard(){
+        String text = "";
+        try {
+            text = String.format("\"%s\" %s %s: %s", mBasePhoto.getTitle(),
+                    mActivity.getString(R.string.by),
+                    mBasePhoto.getOwner().getUsername(),
+                    mBasePhoto.getUrl());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText("Url",text));
+
     }
 
     @Override
