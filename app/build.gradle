@@ -1,8 +1,16 @@
 apply plugin: 'android'
 
+
+
+repositories {
+  maven {
+    url "https://s3.amazonaws.com/repo.commonsware.com"
+  }
+}
+
 android {
   compileSdkVersion 21
-  buildToolsVersion "19.1.0"
+  buildToolsVersion '25.0.0'
 
   defaultConfig {
     minSdkVersion 14
@@ -26,8 +34,9 @@ android {
 
   buildTypes {
     release {
-      runProguard false
-      signingConfig signingConfigs.release
+        minifyEnabled true
+        proguardFile getDefaultProguardFile('proguard-android.txt')
+        signingConfig signingConfigs.release
     }
   }
 }
