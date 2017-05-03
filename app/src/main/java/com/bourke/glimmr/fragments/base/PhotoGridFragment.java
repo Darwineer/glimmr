@@ -1,5 +1,5 @@
 package com.bourke.glimmr.fragments.base;
-
+import com.bourke.glimmr.tasks.LoadPublicPhotosTask;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -264,6 +264,9 @@ public abstract class PhotoGridFragment extends BaseFragment
             if (BuildConfig.DEBUG)
                 Log.d(getLogTag(), "mNewPhotos null or empty, using most " +
                     "recent fetched photo as newest");
+            if(mPage ==25) {
+                mMorePages = false;
+            }
             storeNewestPhotoId(photos.get(0));
         }
     }
