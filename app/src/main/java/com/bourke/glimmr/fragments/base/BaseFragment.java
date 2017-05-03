@@ -1,6 +1,8 @@
 package com.bourke.glimmr.fragments.base;
 
 import com.bourke.glimmr.BuildConfig;
+import android.content.Intent;
+import android.net.Uri;
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
@@ -43,7 +45,7 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
     protected ViewGroup mLayout;
     protected TextUtils mTextUtils;
     protected SharedPreferences mDefaultSharedPrefs;
-
+    private static final int SEARCH_CONFIRMATION=1;
     private static final int DIALOG_LOGOUT_CONFIRMATION = 0;
 
     @Override
@@ -95,6 +97,13 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
     public boolean onOptionsItemSelected(MenuItem item) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onOptionsItemSelected");
         switch (item.getItemId()) {
+            case R.id.support:
+
+                Uri uri = Uri.parse("https://www.flickr.com/help/forum/en-us/"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+                return true;
             case R.id.menu_refresh:
                 refresh();
                 return true;
@@ -108,6 +117,8 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
                         .setTargetFragment(this, DIALOG_LOGOUT_CONFIRMATION)
                         .setRequestCode(DIALOG_LOGOUT_CONFIRMATION)
                         .show();
+
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -118,6 +129,7 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
         if (requestCode == DIALOG_LOGOUT_CONFIRMATION) {
             OAuthUtils.logout(mActivity);
         }
+
     }
 
     @Override
