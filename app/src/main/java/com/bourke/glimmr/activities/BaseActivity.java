@@ -187,7 +187,7 @@ public abstract class BaseActivity extends FragmentActivity {
             if (!UploadPhotoTaskQueueService.IS_RUNNING) {
                 if (BuildConfig.DEBUG) Log.d(TAG, "Starting UploadPhotoTaskQueueService");
                 startService(new Intent(this, UploadPhotoTaskQueueService.class));
-            }
+            }//
         }
     }
 
