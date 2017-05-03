@@ -79,6 +79,7 @@ public final class PhotoViewerFragment extends BaseFragment
     private ProgressBar mProgress;
 
     private int mNum;
+    private static String clipboardContent;
 
     public static PhotoViewerFragment newInstance(Photo photo, boolean fetchExtraInfo, int num) {
         if (BuildConfig.DEBUG) Log.d(TAG, "newInstance");
@@ -184,8 +185,19 @@ public final class PhotoViewerFragment extends BaseFragment
         }
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText("Url",text));
-
+        clipboardContent = clipboard.getPrimaryClip().toString();
     }
+    /*public void setClipboardText(){
+        ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardContent = clipboard.getPrimaryClip().toString();
+    }*/
+
+    public static String getClipboardText(){
+
+        return clipboardContent;
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
