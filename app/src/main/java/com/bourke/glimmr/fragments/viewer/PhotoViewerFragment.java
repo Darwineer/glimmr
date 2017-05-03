@@ -81,6 +81,10 @@ public final class PhotoViewerFragment extends BaseFragment
     private int mNum;
     private static String clipboardContent;
 
+
+    private static boolean didADownLoadOccur = false;
+
+
     public static PhotoViewerFragment newInstance(Photo photo, boolean fetchExtraInfo, int num) {
         if (BuildConfig.DEBUG) Log.d(TAG, "newInstance");
 
@@ -476,15 +480,32 @@ public final class PhotoViewerFragment extends BaseFragment
         }
     }
 
+    public static boolean didADownLoadOccur() {
+        return didADownLoadOccur;
+    }
+
+    public static void setDidADownLoadOccur(boolean b){
+        didADownLoadOccur = b;
+    }
+
+
     private void saveImageToExternalStorage() {
         String url = getLargestUrlAvailable(mBasePhoto);
         new DownloadPhotoTask(mActivity, new Events.IPhotoDownloadedListener() {
             @Override
             public void onPhotoDownloaded(Bitmap bitmap, Exception e) {
-                String filename = mBasePhoto.getTitle() + ".jpg";
+                //There was an issue where sometimes different photos with the same title would
+                //conflict and not allow the second one to download because it already exists
+                //so to differentiate, concatenate a number to the filename
+
+                String filename = mBasePhoto.getTitle() /*+ ".jpg"*/;
+                String sameTitleDifferentiator = mBasePhoto.getId();
+                filename = filename + "_" + sameTitleDifferentiator + ".jpg";
+
                 if (e == null && createExternalStoragePublicPicture(bitmap, filename) != null) {
-                    Toast.makeText(mActivity, getString(R.string.image_saved), Toast.LENGTH_SHORT)
+                    Toast.makeText(mActivity, filename + " Downloaded!", Toast.LENGTH_SHORT)
                             .show();
+
                 } else {
                     Toast.makeText(mActivity, getString(R.string.storage_error), Toast.LENGTH_SHORT)
                             .show();

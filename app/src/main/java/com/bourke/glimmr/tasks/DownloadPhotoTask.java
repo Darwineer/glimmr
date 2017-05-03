@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import com.bourke.glimmr.event.Events;
+import com.bourke.glimmr.fragments.viewer.PhotoViewerFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class DownloadPhotoTask extends AsyncTask<Void, Void, Bitmap> {
     private final String mUrl;
     private Exception mException;
 
+
     public DownloadPhotoTask(Context context, Events.IPhotoDownloadedListener listener,
                              String url) {
         mContext = context;
@@ -29,7 +31,7 @@ public class DownloadPhotoTask extends AsyncTask<Void, Void, Bitmap> {
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
+//added setDidADownloadOccur() statements for testing download success
     @Override
     protected Bitmap doInBackground(Void... params) {
         Bitmap bitmap = null;
@@ -39,7 +41,16 @@ public class DownloadPhotoTask extends AsyncTask<Void, Void, Bitmap> {
         } catch (IOException e) {
             e.printStackTrace();
             mException = e;
+
         }
+
+        if (bitmap!=null){
+            PhotoViewerFragment.setDidADownLoadOccur(true);
+        }
+        else {
+            PhotoViewerFragment.setDidADownLoadOccur(false);
+        }
+
         return bitmap;
     }
 

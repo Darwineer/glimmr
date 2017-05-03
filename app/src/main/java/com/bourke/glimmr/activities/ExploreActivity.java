@@ -40,6 +40,7 @@ public class ExploreActivity extends BaseActivity
 
     private LoginFragment mLoginFragment;
 
+    public static int locactionInPhotoList;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class ExploreActivity extends BaseActivity
             .findFragmentById(R.id.loginFragment);
         mLoginFragment.setNotNowListener(this);
         initViewPager();
+
+        locactionInPhotoList = 0;
 
         handleIntent(getIntent());
     }

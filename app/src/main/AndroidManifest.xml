@@ -99,6 +99,17 @@
             <meta-data android:name="com.commonsware.cwac.wakeful" android:resource="@xml/wakeful"/>
         </receiver>
 
+        <receiver
+            android:name=".tasks.CheckIfDownloadOccured"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+
         <!-- Services -->
         <service android:exported="false" android:name=".appwidget.StackWidgetService" android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
