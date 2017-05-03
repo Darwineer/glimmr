@@ -259,6 +259,7 @@ public class PhotoViewerActivity extends BaseActivity
 
     @Override
     public void onPhotoInfoReady(Photo photo, Exception e) {
+
         if (BuildConfig.DEBUG) Log.d(TAG, "onPhotoInfoReady");
         if (FlickrHelper.getInstance().handleFlickrUnavailable(this, e)) {
             return;
