@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
     private static final String TAG = "Glimmr/BaseFragment";
 
     /**
-     * It's useful to keep a reference to the parent activity in our fragments.
+     * It's useful to keep a reference to the parent activity in our fragments
      */
     protected BaseActivity mActivity;
 
