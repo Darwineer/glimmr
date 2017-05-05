@@ -498,7 +498,7 @@ public final class PhotoViewerFragment extends BaseFragment
                 //conflict and not allow the second one to download because it already exists
                 //so to differentiate, concatenate a number to the filename
 
-                String filename = mBasePhoto.getTitle() /*+ ".jpg"*/;
+                String filename = mBasePhoto.getTitle();
                 String sameTitleDifferentiator = mBasePhoto.getId();
                 filename = filename + "_" + sameTitleDifferentiator + ".jpg";
 
