@@ -45,7 +45,7 @@ public class FlickrSupportDiscussionTests {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
         ViewInteraction textView2 = onView(
-                allOf(withId(android.R.id.title), withText("Support"),  //checks if Support actually exists on the application menu
+                allOf(withId(android.R.id.title), withText("Support"),  // checks if Support actually exists on the application menu
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
