@@ -258,13 +258,13 @@ public abstract class PhotoGridFragment extends BaseFragment
             }
         }
 
-        if (mNewPhotos != null && !mNewPhotos.isEmpty()) {
+        if (mNewPhotos != null && !mNewPhotos.isEmpty()) { //source of the issue for Explorer Tab Loop
             storeNewestPhotoId(mNewPhotos.get(0));
-        } else {
+        } else {//when it ran out of new photos, it was infintely repeating the most recent page
             if (BuildConfig.DEBUG)
                 Log.d(getLogTag(), "mNewPhotos null or empty, using most " +
                     "recent fetched photo as newest");
-            if(mPage ==25) {
+            if(mPage ==25) {//the explorer tab fix. After 25 pages, I set mMorePages to false stopping more pages
                 mMorePages = false;
             }
             storeNewestPhotoId(photos.get(0));

@@ -1,8 +1,8 @@
 package com.bourke.glimmr.fragments.base;
 
 import com.bourke.glimmr.BuildConfig;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Intent; //imported for Glimmr Support Discussions
+import android.net.Uri; //Imported for Glimmr Support Discussions
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
@@ -97,9 +97,9 @@ public abstract class BaseFragment extends Fragment implements ISimpleDialogList
     public boolean onOptionsItemSelected(MenuItem item) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onOptionsItemSelected");
         switch (item.getItemId()) {
-            case R.id.support:
+            case R.id.support:  //added case to add flickr support. Opens flickr support in chrome browser.
 
-                Uri uri = Uri.parse("https://www.flickr.com/help/forum/en-us/"); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse("https://www.flickr.com/help/forum/en-us/"); // missing 'http://' will cause crash
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
 
